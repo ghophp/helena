@@ -15,6 +15,13 @@ app.controller('MainController', ['$scope', '$timeout', function($scope, $timeou
 		emotion: ""
 	};
 
+	$scope.$watchCollection('messages', function (newVal, oldVal) {
+		$timeout(function(){
+			var conversation = document.querySelector('.conversation-container');
+			conversation.scrollTop = conversation.scrollHeight;
+		}, 100);
+	});
+
 	$scope.think = function() {
 		return Math.random() * (2000 - 500) + 500;
 	};
