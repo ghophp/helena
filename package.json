@@ -1,0 +1,26 @@
+{
+	"name": "helena",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ghophp/helena.git"
+	},
+	"scripts": {
+		"start": "grunt"
+	},
+	"dependencies": {
+		
+	},
+	"devDependencies": {
+		"grunt": "~0.4.5",
+		"grunt-contrib-jshint": "~0.9.2",
+		"grunt-contrib-uglify": "~0.4.0",
+		"grunt-contrib-less": "~0.11.0",
+		"grunt-contrib-cssmin": "~0.10.0",
+		"grunt-contrib-watch": "~0.6.1",
+		"grunt-contrib-imagemin": "~1.0.1",
+		"grunt-angular-templates": "~1.0.4",
+		"grunt-bowercopy": "~1.2.4",
+		"grunt-nodemon": "~0.3.0",
+		"grunt-concurrent": "~0.5.0"
+	}
+}
