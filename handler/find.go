@@ -5,16 +5,16 @@ import (
 	"text/template"
 )
 
-type HomeHandler struct {
+type FindHandler struct {
 }
 
-// NewHomeHandler return a instance of a HomeHandler
-func NewHomeHandler() *HomeHandler {
-	return &HomeHandler{}
+// NewFindHandler return a instance of a FindHandler
+func NewFindHandler() *FindHandler {
+	return &FindHandler{}
 }
 
 // ServeHTTP handle the http request, it prints 200 and return manually the current system version
-func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h *FindHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("template/index.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

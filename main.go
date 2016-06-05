@@ -17,9 +17,11 @@ func main() {
 	}
 
 	homeHandler := &handler.HomeHandler{}
+	findHandler := &handler.FindHandler{}
 
 	r := mux.NewRouter()
 	r.Handle("/", homeHandler)
+	r.Handle("/find", findHandler)
 
 	s := http.StripPrefix("/static/", http.FileServer(http.Dir("./dist/")))
 	r.PathPrefix("/static/").Handler(s)
