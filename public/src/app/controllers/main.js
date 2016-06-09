@@ -141,12 +141,36 @@ app.controller('MainController', ['$scope', '$timeout', '$http', function($scope
 	};
 
 	$scope.find = function() {
-		$http.post('/find', {params: {
+		$http.post('/find', {
 			genres: $scope.user.favorites,
 			emotions: $scope.user.emotions
-		}}).success(function(response){
+		}).success(function(response){
 
-			// todo show the musics from spotify
+			if (response.tracks.length) {
+
+				var tracks = response.tracks;
+				var trackIds = [];
+				for (var x = 0; x < tracks.length; x++) {
+					trackIds.push(tracks[x].reference) 
+				}
+
+				var player = '<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:'+
+					trackIds.join(",")+
+					'" frameborder="0" allowtransparency="true"></iframe>';
+					
+				$scope.messages.push({
+					text: player,
+					time: moment().format('LT'),
+					received: true
+				});
+
+			} else {
+				$scope.messages.push({
+					text: ":/ seems that I didn't find anything that you like.. can you give another emotion maybe?",
+					time: moment().format('LT'),
+					received: true
+				});
+			}
 
 		}).error(function(error){
 			$scope.addError(error.statusText);

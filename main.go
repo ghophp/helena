@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/ghophp/helena/config"
+	"github.com/ghophp/helena/db"
 	"github.com/ghophp/helena/handler"
 	"github.com/gorilla/mux"
 )
@@ -16,8 +17,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	homeHandler := &handler.HomeHandler{}
-	findHandler := &handler.FindHandler{}
+	dbMap, err := db.NewDb(cfg.Database.String())
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	homeHandler := handler.NewHomeHandler()
+	findHandler := handler.NewFindHandler(dbMap)
 
 	r := mux.NewRouter()
 	r.Handle("/", homeHandler)
