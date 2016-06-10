@@ -2,8 +2,10 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/ghophp/helena/db/playlist"
 	"github.com/ghophp/helena/db/track"
@@ -56,13 +58,21 @@ func (h *FindHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	tracks, err := track.GetAllTracksByPlaylists(playlists)
+	var playlistIds []string
+	for _, p := range playlists {
+		playlistIds = append(playlistIds, strconv.FormatUint(p.Id, 10))
+	}
+
+	tracks, err := track.GetAllTracksByPlaylists(h.db, playlistIds)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	//for _, t := range tracks {
-	// todo: implement the filter logic that with the article studies
-	//}
+	result, err := json.Marshal(tracks)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w, string(result))
 }

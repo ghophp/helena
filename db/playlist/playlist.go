@@ -2,7 +2,6 @@ package playlist
 
 import (
 	"database/sql"
-	"fmt"
 	"strings"
 
 	"gopkg.in/gorp.v1"
@@ -29,7 +28,7 @@ func GetAllPlaylists(db gorp.SqlExecutor) ([]*Playlist, error) {
 
 func GetPlaylistByGenres(db gorp.SqlExecutor, genres []string) ([]*Playlist, error) {
 	for i, _ := range genres {
-		genres[i] = '"' + genres[i] + '"'
+		genres[i] = `"` + genres[i] + `"`
 	}
 
 	var (
@@ -40,8 +39,6 @@ func GetPlaylistByGenres(db gorp.SqlExecutor, genres []string) ([]*Playlist, err
 
 		playlists []*Playlist
 	)
-
-	fmt.Println(query)
 
 	_, err := db.Select(&playlists, query)
 	return playlists, err

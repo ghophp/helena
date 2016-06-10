@@ -1,4 +1,4 @@
-app.controller('MainController', ['$scope', '$timeout', '$http', function($scope, $timeout, $http){
+app.controller('MainController', ['$scope', '$timeout', '$http', '$sce', function($scope, $timeout, $http, $sce){
 	$scope.currentTry = 0;
 	$scope.currentText = "";
 	
@@ -144,26 +144,32 @@ app.controller('MainController', ['$scope', '$timeout', '$http', function($scope
 		$http.post('/find', {
 			genres: $scope.user.favorites,
 			emotions: $scope.user.emotions
-		}).success(function(response){
-
-			if (response.tracks.length) {
-
-				var tracks = response.tracks;
+		}).success(function(tracks){
+			console.log(tracks);
+			if (tracks.length) {
 				var trackIds = [];
 				for (var x = 0; x < tracks.length; x++) {
-					trackIds.push(tracks[x].reference) 
+					trackIds.push(tracks[x].reference); 
 				}
 
 				var player = '<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:'+
 					trackIds.join(",")+
 					'" frameborder="0" allowtransparency="true"></iframe>';
-					
+
 				$scope.messages.push({
-					text: player,
+					text: $sce.trustAsHtml(player),
 					time: moment().format('LT'),
-					received: true
+					received: true,
+					html: true
 				});
 
+				$timeout(function(){
+					$scope.messages.push({
+						text: "there you go! check it out.. it was designed to your emotions ;)",
+						time: moment().format('LT'),
+						received: true
+					});
+				}, $scope.think());
 			} else {
 				$scope.messages.push({
 					text: ":/ seems that I didn't find anything that you like.. can you give another emotion maybe?",
@@ -171,7 +177,6 @@ app.controller('MainController', ['$scope', '$timeout', '$http', function($scope
 					received: true
 				});
 			}
-
 		}).error(function(error){
 			$scope.addError(error.statusText);
 		});

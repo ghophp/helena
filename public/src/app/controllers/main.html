@@ -46,7 +46,8 @@
 					<div class="conversation">
 						<div class="conversation-container">
 							<div ng-repeat="(index, message) in messages" class="message" ng-class="{'sent': !message.received, 'received': message.received}">
-								{{ message.text }}
+								<div ng-if="message.html" ng-bind-html="message.text" class="player-wrapper"></div>
+								<span ng-if="!message.html">{{ message.text }}</span>
 								<span class="metadata">
 									<span class="time">{{ message.time }}</span>
 									<span class="tick" ng-class="{'tick-animation': !message.ack, '': message.ack}" ng-if="!message.received">
