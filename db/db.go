@@ -6,8 +6,8 @@ package db
 import (
 	"database/sql"
 
-	"bitbucket.org/ghophp/helena-indexer/db/playlist"
-	"bitbucket.org/ghophp/helena-indexer/db/track"
+	"github.com/ghophp/helena/db/playlist"
+	"github.com/ghophp/helena/db/track"
 
 	_ "github.com/go-sql-driver/mysql"
 	"gopkg.in/gorp.v1"
