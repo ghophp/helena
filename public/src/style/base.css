@@ -38,7 +38,7 @@ body {
 
 .status-bar {
   height: 25px;
-  background: #004e45;
+  background: #252525;
   color: #fff;
   font-size: 14px;
   padding: 0 8px;
@@ -73,7 +73,7 @@ body {
 
 .user-bar {
   height: 55px;
-  background: #005e54;
+  background: #000000;
   color: #fff;
   padding: 0 8px;
   font-size: 24px;
@@ -371,7 +371,7 @@ body {
 }
 
 .conversation-compose .send .circle {
-  background: #008a7c;
+  background: #040404;
   border-radius: 50%;
   color: #fff;
   position: relative;

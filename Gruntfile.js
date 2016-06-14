@@ -26,6 +26,16 @@ module.exports = function(grunt) {
       }
     },
 
+    // VIDEOS =================================================================
+
+    copy: {
+      main: {
+        files: [
+          {expand: true, flatten: true, src: ['public/videos/*'], dest: 'dist/videos/', filter: 'isFile'},
+        ],
+      },
+    },
+
     // IMAGES =================================================================
 
     imagemin: {
@@ -117,7 +127,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-bowercopy');
   grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['bowercopy', 'imagemin', 'ngtemplates', 'less', 'cssmin', 'jshint', 'uglify']);
+  grunt.registerTask('default', ['bowercopy', 'copy', 'imagemin', 'ngtemplates', 'less', 'cssmin', 'jshint', 'uglify']);
 
 };

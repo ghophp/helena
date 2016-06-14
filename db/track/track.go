@@ -11,6 +11,7 @@ import (
 type Track struct {
 	Id               uint64        `json:"id" db:"id"`
 	PlaylistId       uint64        `json:"playlist_id" db:"playlist_id"`
+	EmotionId        uint64        `json:"-" db:"emotion_id"`
 	Href             string        `json:"href" db:"href"`
 	Duration         uint64        `json:"-" db:"duration"`
 	Popularity       uint64        `json:"-" db:"popularity"`
