@@ -60,6 +60,9 @@ module.exports = function(grunt) {
 
     // JS TASKS ================================================================
     jshint: {
+      options: {
+        reporterOutput: ""
+      },
       all: ['public/src/**/*.js'] 
     },
 
